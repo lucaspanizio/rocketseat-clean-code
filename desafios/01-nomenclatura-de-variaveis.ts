@@ -1,6 +1,7 @@
 // Nomenclatura de variáveis
+// https://efficient-sloth-d85.notion.site/Desafio-Nomea-o-de-vari-veis-0a8484a8cdc743558d6677910590a874
 
-const list = [
+const categories = [
   {
     title: 'User',
     followers: 5
@@ -19,37 +20,41 @@ const list = [
   },
 ]
 
-export default async function getData(req, res) {
-  const github = String(req.query.username)
+async function getUserCategoryOnGitHub(req, res) {
+  const githubUsername = String(req.query.username)
 
-  if (!github) {
+  if (!githubUsername) {
     return res.status(400).json({
       message: `Please provide an username to search on the github API`
     })
   }
 
-  const response = await fetch(`https://api.github.com/users/${github}`);
+  const githubAPIResponse = await fetch(`https://api.github.com/users/${githubUsername}`);
 
-  if (response.status === 404) {
-    return res.status(400).json({
-      message: `User with username "${github}" not found`
-    })
+  if (githubAPIResponse.status === 404) {
+    return {
+      statusCode: 400,
+      message: `User with username "${githubUsername}" not found`
+    }
   }
 
-  const data = await response.json()
+  const userDataGithub = await githubAPIResponse.json()
 
-  const orderList = list.sort((a, b) =>  b.followers - a.followers); 
+  const orderedCategories = categories.sort((categoryA, categoryB) =>  categoryB.followers - categoryA.followers); 
 
-  const category = orderList.find(i => data.followers > i.followers)
+  const categoryUser = orderedCategories.find(category => userDataGithub.followers > category.followers)
 
   const result = {
-    github,
-    category: category.title
+    username: githubUsername,
+    category: categoryUser.title ?? "Does not fit into any category"
   }
 
   return result
 }
 
-getData({ query: {
+getUserCategoryOnGitHub({ query: {
   username: 'josepholiveira'
-}}, {})
+}}, {}).then((githubUserAndCategory) => {
+    console.log(githubUserAndCategory)
+  }
+)

@@ -1,14 +1,11 @@
 {
-  "name": "clean-code-desafios",
+  "name": "rocketseat-clean-code",
+  "author": "José Lucas Panizio",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "Repositório com desafios resolvidos do curso Clean Code da RocketSeat",
+  "scripts": {},
+  "keywords": ["clean","code","desafios","rocketseat","ignite"],
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",

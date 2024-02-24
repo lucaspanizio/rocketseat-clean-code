@@ -1,4 +1,5 @@
 // Boleanos
+// https://efficient-sloth-d85.notion.site/Desafio-Booleanos-aaab19f8e0394d20ae135c30094a7a3c
 
 const user = {
   name: 'Diego Fernandes',
@@ -10,22 +11,22 @@ const necessaryHeight = 130
 
 const currentHour = new Date().getHours()
 
-const parkOpen = currentHour > 9 && currentHour < 18
+const parkIsOpen = currentHour > 9 && currentHour < 18
 
-if (!parkOpen) {
+if (!parkIsOpen) {
   throw new Error('O parque está fechado!')
 }
 
-const ticket = user.hasTicket
+const userHasTicket = user.hasTicket
 
-if (!ticket) {
-  throw new Error('O Diego não possui um bilhete para entrar no parque!')
+if (!userHasTicket) {
+  throw new Error(`O ${user.name} não possui um bilhete para entrar no parque!`)
 }
 
-const enterToy = user.height > necessaryHeight
+const canEnterToy = user.height > necessaryHeight
 
-if (!enterToy) {
-  throw new Error('O Diego não pode entrar no brinquedo!')
+if (!canEnterToy) {
+  throw new Error(`O ${user.name} não pode entrar no brinquedo!`)
 } 
 
-console.log('O Diego se divertiu muito! :)')
+console.log(`O ${user.name} se divertiu muito! :)`)

@@ -1,50 +1,52 @@
 // Causa vs Efeito
-import { useEffect, useState } from "react"
+// https://efficient-sloth-d85.notion.site/Desafio-Causa-vs-Efeito-a664fd5596c8467f9d5d66f3043ac9c5
 
-interface User {
+import { useEffect, useState } from "react";
+
+interface GitHubUser {
   name: string;
-  github: string;
+  url: string;
 }
 
-function fetchUser() {
+function fetchGitHubUser() {
   return {
     data: {
       user: {
-        name: 'Joseph Oliveira',
-        github: 'https://github.com/josepholiveira'
-      }
-    }
-  }
+        name: "Joseph Oliveira",
+        url: "https://github.com/josepholiveira",
+      },
+    },
+  };
 }
 
-export function UserProfile() {
-  const [shouldNotRenderUserName, setShouldNotRenderUserName] = useState(false)
-  const [userData, setUserData] = useState<User>()
+export function GitHubUserProfile() {
+  const [shouldNotRenderGitHubUserData, setShouldNotRenderGitHubUserData] =
+    useState(false);
+  const [githubUserData, setGitHubUserData] = useState<GitHubUser>();
 
   useEffect(() => {
     function loadUser() {
-      setShouldNotRenderUserName(true)
+      setShouldNotRenderGitHubUserData(true);
 
-      const fetchUserResponse = fetchUser()
+      const fetchGitHubUserResponse = fetchGitHubUser();
+      const githubUser = fetchGitHubUserResponse.data.user;
 
-      setUserData(fetchUserResponse.data.user)
-      
-      setShouldNotRenderUserName(false)
+      setGitHubUserData(githubUser);
+
+      setShouldNotRenderGitHubUserData(false);
     }
 
-    loadUser()
-  })
+    loadUser();
+  });
 
-  if (shouldNotRenderUserName) {
-    return <p>Loading...</p>
+  if (shouldNotRenderGitHubUserData) {
+    return <p>Loading...</p>;
   }
 
   return (
     <div>
-      <img src={`${userData?.github}.png`} alt="" />
-      <a href={userData?.github}>{userData?.name}</a>
+      <img src={`${githubUserData?.url}.png`} alt="" />
+      <a href={githubUserData?.url}>{githubUserData?.name}</a>
     </div>
-  )
+  );
 }
-
-
